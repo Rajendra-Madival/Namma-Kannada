@@ -1,0 +1,109 @@
+.audio-player {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-bg-subtle);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  width: 100%;
+}
+
+.audio-play-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: var(--color-karnataka-red);
+  color: #FFFFFF;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(198, 40, 40, 0.3);
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.audio-play-button:hover {
+  background-color: var(--color-karnataka-red-hover);
+  transform: scale(1.05);
+}
+
+.audio-track-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  flex: 1;
+}
+
+.audio-progress-bar {
+  width: 100%;
+  height: 6px;
+  background-color: var(--color-border-subtle);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.audio-progress-fill {
+  height: 100%;
+  background-color: var(--color-karnataka-red);
+  transition: width 0.1s linear;
+}
+
+.audio-time-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--color-ink-muted);
+}
+
+/* Fallback state when recording is pending */
+.audio-player-fallback {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.5rem 0.75rem;
+  background-color: #F8F9FA;
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-md);
+  color: var(--color-ink-muted);
+}
+
+.audio-fallback-icon {
+  font-size: 1.1rem;
+  opacity: 0.7;
+}
+
+.audio-fallback-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.fallback-title {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-ink-muted);
+}
+
+.fallback-subtitle {
+  font-size: 0.75rem;
+  color: var(--color-ink-light);
+  line-height: 1.3;
+}
+
+/* Compact Mode */
+.audio-player.compact {
+  padding: 0.25rem 0.5rem;
+}
+
+.audio-player.compact .audio-play-button {
+  width: 28px;
+  height: 28px;
+  font-size: 0.75rem;
+}
+
+.audio-player-fallback.compact {
+  padding: 0.25rem 0.5rem;
+}

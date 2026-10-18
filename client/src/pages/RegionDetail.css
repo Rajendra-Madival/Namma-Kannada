@@ -1,0 +1,133 @@
+.region-detail-page {
+  padding-bottom: var(--space-16);
+}
+
+.region-hero-banner {
+  background: linear-gradient(to bottom, var(--color-warm-ivory-alt), var(--color-bg-page));
+  border-bottom: 3px solid var(--banner-accent, var(--color-karnataka-red));
+  padding: var(--space-8) 0 var(--space-10);
+}
+
+.region-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-xs);
+  color: var(--color-ink-muted);
+  margin-bottom: var(--space-6);
+}
+
+.region-breadcrumb a {
+  color: var(--color-ink-muted);
+}
+
+.region-breadcrumb a:hover {
+  color: var(--color-karnataka-red);
+}
+
+.region-hero-header {
+  margin-bottom: var(--space-3);
+}
+
+.region-eyebrow-tag {
+  display: inline-block;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--banner-accent, var(--color-karnataka-red));
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-1);
+}
+
+.region-banner-title {
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: var(--color-ink);
+  line-height: 1.15;
+}
+
+.region-banner-sub {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.region-banner-desc {
+  font-size: var(--font-size-base);
+  color: var(--color-ink);
+  max-width: 800px;
+  line-height: 1.7;
+  margin-bottom: var(--space-6);
+}
+
+.region-districts-pillbox {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  max-width: fit-content;
+}
+
+.districts-heading {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.districts-pill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.district-pill {
+  font-size: var(--font-size-xs);
+  padding: 0.2rem 0.6rem;
+  background-color: var(--color-bg-subtle);
+  border-radius: var(--radius-full);
+  color: var(--color-ink-muted);
+}
+
+/* Region Content Section */
+.region-content-container {
+  padding-top: var(--space-10);
+}
+
+.region-expressions-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+}
+
+@media (min-width: 768px) {
+  .region-expressions-header {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}
+
+.region-expressions-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 640px) {
+  .region-expressions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .region-expressions-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

@@ -1,0 +1,118 @@
+.region-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-top: 4px solid var(--region-accent, var(--color-karnataka-red));
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+  height: 100%;
+}
+
+.region-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-border-strong);
+  border-top-color: var(--region-accent, var(--color-karnataka-red));
+}
+
+.region-card-top {
+  margin-bottom: var(--space-4);
+}
+
+.region-card-badge {
+  margin-bottom: var(--space-2);
+}
+
+.region-count-badge {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  background-color: var(--color-bg-subtle);
+  color: var(--color-ink-muted);
+  border-radius: var(--radius-full);
+  display: inline-block;
+}
+
+.region-title-kn {
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  color: var(--color-ink);
+  margin-bottom: 2px;
+}
+
+.region-title-en {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-karnataka-red);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.region-description {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--space-4);
+  flex: 1;
+}
+
+.region-districts {
+  font-size: var(--font-size-xs);
+  color: var(--color-ink-muted);
+  background-color: var(--color-bg-subtle);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-5);
+}
+
+.districts-label {
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.region-card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: auto;
+}
+
+.region-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 1rem;
+  background-color: var(--color-ink);
+  color: #FFFFFF;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.region-btn-primary:hover {
+  background-color: var(--color-karnataka-red);
+  color: #FFFFFF;
+}
+
+.region-btn-subtle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  color: var(--color-ink);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.region-btn-subtle:hover {
+  background-color: var(--color-temple-sand);
+}

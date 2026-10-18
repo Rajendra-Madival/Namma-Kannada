@@ -1,0 +1,89 @@
+:root {
+  /* Karnataka-inspired Brand Palette */
+  --color-karnataka-red: #C62828;
+  --color-karnataka-red-hover: #A71D1D;
+  --color-karnataka-red-subtle: #FDF2F2;
+  --color-karnataka-red-border: #F8B4B4;
+
+  --color-kannada-gold: #F4C430;
+  --color-kannada-gold-hover: #E0B225;
+  --color-kannada-gold-subtle: #FEF9E7;
+  --color-kannada-gold-border: #FBE288;
+
+  --color-warm-ivory: #FFF9ED;
+  --color-warm-ivory-alt: #FAF2E3;
+  --color-surface-white: #FFFFFF;
+  --color-temple-sand: #E9E1D5;
+  --color-temple-sand-dark: #D4C9BA;
+
+  --color-ink: #292722;
+  --color-ink-muted: #575248;
+  --color-ink-light: #7E786B;
+
+  /* Semantic System Tokens */
+  --color-bg-page: var(--color-warm-ivory);
+  --color-bg-surface: var(--color-surface-white);
+  --color-bg-subtle: var(--color-warm-ivory-alt);
+
+  --color-text-primary: var(--color-ink);
+  --color-text-secondary: var(--color-ink-muted);
+  --color-text-tertiary: var(--color-ink-light);
+
+  --color-border-subtle: var(--color-temple-sand);
+  --color-border-strong: var(--color-temple-sand-dark);
+
+  /* Functional Status Colors */
+  --color-success: #2E7D32;
+  --color-success-bg: #E8F5E9;
+  --color-warning: #E65100;
+  --color-warning-bg: #FFF3E0;
+  --color-info: #0277BD;
+  --color-info-bg: #E1F5FE;
+
+  /* Typography */
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-kannada: 'Noto Sans Kannada', 'Plus Jakarta Sans', sans-serif;
+
+  /* Font Sizes */
+  --font-size-xs: 0.75rem;     /* 12px */
+  --font-size-sm: 0.875rem;    /* 14px */
+  --font-size-base: 1rem;       /* 16px */
+  --font-size-lg: 1.125rem;    /* 18px */
+  --font-size-xl: 1.25rem;     /* 20px */
+  --font-size-2xl: 1.5rem;     /* 24px */
+  --font-size-3xl: 1.875rem;   /* 30px */
+  --font-size-4xl: 2.25rem;    /* 36px */
+  --font-size-5xl: 3rem;       /* 48px */
+
+  /* Spacing Scale */
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+
+  /* Border Radii */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* Shadows (warm & restrained) */
+  --shadow-sm: 0 1px 2px rgba(41, 39, 34, 0.05);
+  --shadow-md: 0 4px 12px rgba(41, 39, 34, 0.08);
+  --shadow-lg: 0 10px 24px rgba(41, 39, 34, 0.1);
+  --shadow-hover: 0 8px 20px rgba(198, 40, 40, 0.15);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+
+  /* Container width */
+  --max-content-width: 1200px;
+}

@@ -1,0 +1,166 @@
+.about-page {
+  padding: var(--space-8) 0 var(--space-16);
+}
+
+.about-header {
+  margin-bottom: var(--space-8);
+  max-width: 800px;
+}
+
+.about-title {
+  font-size: var(--font-size-3xl);
+  font-weight: 800;
+  color: var(--color-ink);
+  margin-bottom: var(--space-3);
+}
+
+.about-lead {
+  font-size: var(--font-size-lg);
+  color: var(--color-ink-muted);
+  line-height: 1.6;
+}
+
+.about-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  max-width: 860px;
+}
+
+.about-card {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-sm);
+}
+
+.about-section-heading {
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  color: var(--color-karnataka-red);
+  margin-bottom: var(--space-4);
+}
+
+.about-card p {
+  font-size: var(--font-size-base);
+  color: var(--color-ink);
+  line-height: 1.7;
+  margin-bottom: var(--space-4);
+}
+
+.about-card p:last-child {
+  margin-bottom: 0;
+}
+
+.about-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.about-list li {
+  font-size: var(--font-size-sm);
+  color: var(--color-ink);
+  line-height: 1.5;
+  padding-left: var(--space-4);
+  position: relative;
+}
+
+.about-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--color-karnataka-red);
+  font-weight: 700;
+}
+
+.about-list strong {
+  color: var(--color-ink);
+}
+
+.pipeline-steps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+@media (min-width: 640px) {
+  .pipeline-steps {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.pipeline-step {
+  background-color: var(--color-bg-subtle);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+
+.step-num {
+  display: inline-block;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-karnataka-red);
+  text-transform: uppercase;
+  margin-bottom: var(--space-1);
+}
+
+.pipeline-step h4 {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-bottom: var(--space-2);
+}
+
+.pipeline-step p {
+  font-size: var(--font-size-xs);
+  color: var(--color-ink-muted);
+  line-height: 1.5;
+}
+
+.limitation-alert {
+  background-color: var(--color-warm-ivory-alt);
+  border: 1px dashed var(--color-temple-sand);
+  border-left: 4px solid var(--color-karnataka-red);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+}
+
+.limitation-alert p {
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  color: var(--color-ink-muted);
+}
+
+.about-cta-card {
+  background-color: var(--color-kannada-gold-subtle);
+  border: 1px solid var(--color-kannada-gold-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  text-align: center;
+}
+
+.about-cta-card h3 {
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  color: var(--color-ink);
+  margin-bottom: var(--space-2);
+}
+
+.about-cta-card p {
+  font-size: var(--font-size-base);
+  color: var(--color-ink-muted);
+  margin-bottom: var(--space-5);
+}
+
+.about-cta-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: center;
+}

@@ -1,0 +1,71 @@
+.form-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--space-5);
+  text-align: left;
+}
+
+.form-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-bottom: var(--space-2);
+}
+
+.kannada-label {
+  color: var(--color-karnataka-red);
+  font-weight: 700;
+}
+
+.required-indicator {
+  color: var(--color-karnataka-red);
+  margin-left: var(--space-1);
+}
+
+.form-hint {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.form-control-wrapper input,
+.form-control-wrapper textarea,
+.form-control-wrapper select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--color-ink);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-control-wrapper textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.form-control-wrapper input:focus,
+.form-control-wrapper textarea:focus,
+.form-control-wrapper select:focus {
+  outline: none;
+  border-color: var(--color-karnataka-red);
+  box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.15);
+}
+
+.form-field.has-error input,
+.form-field.has-error textarea,
+.form-field.has-error select {
+  border-color: var(--color-karnataka-red);
+  background-color: var(--color-karnataka-red-subtle);
+}
+
+.form-error {
+  font-size: var(--font-size-xs);
+  color: var(--color-karnataka-red);
+  font-weight: 600;
+  margin-top: var(--space-1);
+}
