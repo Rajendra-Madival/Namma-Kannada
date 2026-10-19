@@ -16,11 +16,11 @@ export default function ExpressionDetail() {
     return (
       <div className="container" style={{ padding: '4rem 1rem' }}>
         <EmptyState
-          title="ಪದ ದೊರೆಯಲಿಲ್ಲ (Expression Not Found)"
-          description={`The expression ID "${expressionId}" does not exist in our current dataset.`}
+          title="Expression not found"
+          description={`No expression with ID "${expressionId}" exists in the current archive.`}
           action={
             <Button variant="primary" onClick={() => navigate('/explore')}>
-              ← ಅನ್ವೇಷಣೆಗೆ ಹಿಂತಿರುಗಿ (Back to Explore)
+              ← Back to Explore
             </Button>
           }
         />
@@ -42,7 +42,7 @@ export default function ExpressionDetail() {
     notes,
     isVerified,
     isSample,
-    contributor
+    contributor,
   } = expression;
 
   const regionInfo = REGIONS.find((r) => r.id === regionId);
@@ -50,140 +50,146 @@ export default function ExpressionDetail() {
   return (
     <div className="expression-detail-page">
       <div className="container">
-        {/* Navigation Breadcrumb */}
+
+        {/* Breadcrumb */}
         <nav className="detail-breadcrumb" aria-label="Breadcrumb">
-          <Link to="/">ಮುಖಪುಟ (Home)</Link>
-          <span>/</span>
-          <Link to="/explore">ಅನ್ವೇಷಿಸಿ (Explore)</Link>
-          <span>/</span>
+          <Link to="/explore">Explore</Link>
+          <span aria-hidden="true">/</span>
           <span className="current-crumb kannada-text">{kannada}</span>
         </nav>
 
         <div className="detail-layout">
-          {/* Main Info Card */}
-          <div className="detail-main-card">
-            <div className="detail-header-badges">
+
+          {/* ── Main column ── */}
+          <div className="detail-main">
+
+            {/* Status badges */}
+            <div className="detail-badges">
               <Link to={`/regions/${regionId}`} className="badge badge-region">
-                📍 {regionName}
+                {regionName}
               </Link>
               {isVerified ? (
-                <span className="badge badge-verified">✓ ಪರಿಶೀಲಿತ ನುಡಿ (Verified)</span>
+                <span className="badge badge-verified">✓ Verified</span>
               ) : (
-                <span className="badge badge-sample">ಪರೀಕ್ಷಾರ್ಥ ದಾಖಲೆ (Sample Fixture)</span>
+                <span className="badge badge-sample">Sample fixture</span>
               )}
             </div>
 
+            {/* Word & transliteration */}
             <h1 className="detail-word kannada-text">{kannada}</h1>
             {transliteration && (
               <p className="detail-transliteration">{transliteration}</p>
             )}
 
-            <div className="detail-meaning-box">
-              <h2 className="meaning-heading">ಅರ್ಥ (Meaning)</h2>
+            {/* Meaning */}
+            <section className="detail-section">
+              <h2 className="detail-section-heading">Meaning</h2>
               <p className="meaning-primary">{meaning}</p>
               {literalMeaning && (
                 <p className="meaning-literal">
-                  <strong>ನೇರ ಅಥವಾ ಸಾಂಕೇತಿಕ ಅರ್ಥ (Literal/Connotative):</strong> {literalMeaning}
+                  <strong>Literal / connotative:</strong> {literalMeaning}
                 </p>
               )}
-            </div>
+            </section>
 
-            {/* Standard Kannada comparison */}
-            {standardKannada && (
-              <div className="detail-section">
-                <h3 className="section-title-sm">ಪ್ರಮಾಣಿತ ಕನ್ನಡ ಸಮಾನಾರ್ಥಕ (Standard Equivalent)</h3>
-                <div className="standard-box">
-                  <span className="standard-word kannada-text">{standardKannada}</span>
-                  <span className="standard-note">As commonly written in textbooks and formal media</span>
-                </div>
-              </div>
-            )}
-
-            {/* Usage Example */}
-            {usageExample && (
-              <div className="detail-section">
-                <h3 className="section-title-sm">ಪ್ರಯೋಗ / ವಾಕ್ಯ ಬಳಕೆ (Usage in Dialogue)</h3>
-                <div className="usage-box">
-                  <p className="usage-sentence kannada-text">"{usageExample.kannada}"</p>
-                  <p className="usage-translation">— {usageExample.translation}</p>
-                </div>
-              </div>
-            )}
-
-            {/* Dialect Variants */}
-            {variants && variants.length > 0 && (
-              <div className="detail-section">
-                <h3 className="section-title-sm">ಇತರ ರೂಪಗಳು ಮತ್ತು ರೂಪಾಂತರಗಳು (Dialect Variants)</h3>
-                <div className="variants-list">
-                  {variants.map((v, idx) => (
-                    <span key={idx} className="variant-chip kannada-text">
-                      {v}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Cultural & Linguistic Notes */}
-            {notes && (
-              <div className="detail-section">
-                <h3 className="section-title-sm">ಭಾಷಿಕ ಮತ್ತು ಸಾಂಸ್ಕೃತಿಕ ಹಿನ್ನೆಲೆ (Cultural Notes)</h3>
-                <p className="detail-notes-text">{notes}</p>
-              </div>
-            )}
-          </div>
-
-          {/* Sidebar: Audio & Region Context */}
-          <aside className="detail-sidebar">
-            {/* Audio Panel */}
-            <div className="sidebar-card">
-              <h3 className="sidebar-title">ಧ್ವನಿ ಉಚ್ಚಾರಣೆ (Pronunciation)</h3>
+            {/* Audio */}
+            <section className="detail-section">
+              <h2 className="detail-section-heading">Pronunciation</h2>
               <AudioPlayer
                 audioUrl={audioUrl}
                 expressionKannada={kannada}
                 regionName={regionName}
               />
-              <p className="audio-guideline">
-                Authentic dialect pronunciation reflects natural speed, tonal contour, and regional honorifics.
-              </p>
-            </div>
+            </section>
 
-            {/* Region Details Panel */}
+            {/* Region */}
             {regionInfo && (
-              <div className="sidebar-card">
-                <span className="sidebar-eyebrow">ಸಂಬಂಧಿತ ಪ್ರದೇಶ</span>
-                <h3 className="sidebar-region-title kannada-text">{regionInfo.nameKn}</h3>
-                <p className="sidebar-region-en">{regionInfo.nameEn}</p>
-                <p className="sidebar-region-desc">{regionInfo.shortDescription}</p>
-                
+              <section className="detail-section">
+                <h2 className="detail-section-heading">Region &amp; dialect</h2>
+                <p className="region-name-line">
+                  <span className="kannada-text">{regionInfo.nameKn}</span>{' '}
+                  — {regionInfo.nameEn}
+                </p>
+                <p className="region-description-line">{regionInfo.shortDescription}</p>
                 {regionInfo.districts && (
-                  <div className="sidebar-districts">
-                    <strong>ವ್ಯಾಪ್ತಿ (Districts):</strong> {regionInfo.districts.slice(0, 4).join(', ')}...
-                  </div>
+                  <p className="districts-line">
+                    <strong>Districts:</strong> {regionInfo.districts.join(', ')}
+                  </p>
                 )}
-
-                <Link to={`/regions/${regionId}`} className="sidebar-link">
-                  ಈ ಪ್ರದೇಶದ ಬಗ್ಗೆ ಇನ್ನಷ್ಟು ತಿಳಿಯಿರಿ (Learn more) →
+                <Link to={`/regions/${regionId}`} className="detail-region-link">
+                  Browse all {regionInfo.nameEn} expressions →
                 </Link>
-              </div>
+              </section>
             )}
 
-            {/* Attribution / Integrity Note */}
-            <div className="sidebar-card sidebar-meta">
-              <span className="sidebar-eyebrow">ದಾಖಲೆಯ ಮೂಲ</span>
+            {/* Standard equivalent */}
+            {standardKannada && (
+              <section className="detail-section">
+                <h2 className="detail-section-heading">Standard Kannada equivalent</h2>
+                <div className="standard-box">
+                  <span className="standard-word kannada-text">{standardKannada}</span>
+                  <span className="standard-note">As used in formal writing and textbooks</span>
+                </div>
+              </section>
+            )}
+
+            {/* Usage example */}
+            {usageExample && (
+              <section className="detail-section">
+                <h2 className="detail-section-heading">Example sentence</h2>
+                <blockquote className="usage-box">
+                  <p className="usage-sentence kannada-text">"{usageExample.kannada}"</p>
+                  <footer className="usage-translation">— {usageExample.translation}</footer>
+                </blockquote>
+              </section>
+            )}
+
+            {/* Variants */}
+            {variants && variants.length > 0 && (
+              <section className="detail-section">
+                <h2 className="detail-section-heading">Regional variants</h2>
+                <div className="variants-list">
+                  {variants.map((v, idx) => (
+                    <span key={idx} className="variant-chip kannada-text">{v}</span>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Cultural notes */}
+            {notes && (
+              <section className="detail-section">
+                <h2 className="detail-section-heading">Cultural notes</h2>
+                <p className="detail-notes-text">{notes}</p>
+              </section>
+            )}
+
+            {/* Attribution */}
+            <section className="detail-section detail-meta">
               <p className="meta-text">
-                <strong>ಮೂಲ / ದೃಢೀಕರಣ:</strong> {contributor || 'ಸಮುದಾಯ ಪರಿಶೀಲನೆ (Community Fixture)'}
+                <strong>Source:</strong> {contributor || 'Community fixture'}
               </p>
               <p className="meta-sub">
-                Notice an inaccuracy? You can submit an edit or contextual note via our feedback form.
+                Spotted an inaccuracy?{' '}
+                <Link to="/contact">Suggest a correction</Link>
               </p>
-              <Link to="/contact">
-                <Button variant="outline" size="sm" className="w-full">
-                  ತಿದ್ದುಪಡಿ ಸೂಚಿಸಿ (Suggest Correction)
-                </Button>
-              </Link>
+            </section>
+
+          </div>
+
+          {/* ── Sidebar: quick nav ── */}
+          <aside className="detail-sidebar">
+            <div className="sidebar-back">
+              <button
+                type="button"
+                className="btn btn-outline btn-sm"
+                onClick={() => navigate(-1)}
+              >
+                ← Back
+              </button>
             </div>
           </aside>
+
         </div>
       </div>
     </div>

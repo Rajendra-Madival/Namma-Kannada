@@ -1,24 +1,18 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import Button from '../common/Button';
 import './Navbar.css';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsMobileMenuOpen((prev) => !prev);
-  };
-
-  const closeMenu = () => {
-    setIsMobileMenuOpen(false);
-  };
+  const toggleMenu = () => setIsMobileMenuOpen((prev) => !prev);
+  const closeMenu = () => setIsMobileMenuOpen(false);
 
   return (
     <header className="navbar-wrapper">
       <div className="container navbar-container">
-        {/* Brand / Logo */}
-        <Link to="/" className="navbar-brand" onClick={closeMenu}>
+        {/* Brand / Logo → Home */}
+        <Link to="/" className="navbar-brand" onClick={closeMenu} aria-label="Namma Kannada — Home">
           <div className="brand-flag" aria-hidden="true">
             <span className="flag-yellow" />
             <span className="flag-red" />
@@ -29,55 +23,42 @@ export default function Navbar() {
           </div>
         </Link>
 
-        {/* Desktop Navigation Links */}
+        {/* Desktop Navigation — 4 primary links */}
         <nav className="navbar-links" aria-label="Main Navigation">
-          <NavLink 
-            to="/" 
+          <NavLink
+            to="/explore"
             className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}
-            end
           >
-            ಮುಖಪುಟ (Home)
+            Explore
           </NavLink>
-          <NavLink 
-            to="/explore" 
+          <NavLink
+            to="/regions"
             className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}
           >
-            ಅನ್ವೇಷಿಸಿ (Explore)
+            Regions
           </NavLink>
-          <NavLink 
-            to="/regions" 
+          <NavLink
+            to="/contribute"
             className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}
           >
-            ಪ್ರದೇಶಗಳು (Regions)
+            Contribute
           </NavLink>
-          <NavLink 
-            to="/about" 
+          <NavLink
+            to="/about"
             className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}
           >
-            ನಮ್ಮ ಬಗ್ಗೆ (About)
-          </NavLink>
-          <NavLink 
-            to="/contact" 
-            className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}
-          >
-            ಸಂಪರ್ಕ (Contact)
+            About
           </NavLink>
         </nav>
 
-        {/* Action Button & Mobile Menu Toggle */}
+        {/* Mobile Menu Toggle */}
         <div className="navbar-actions">
-          <Link to="/contribute" className="navbar-cta-desktop">
-            <Button variant="primary" size="sm">
-              + ಪದ ಸೇರಿಸಿ (Contribute)
-            </Button>
-          </Link>
-
-          <button 
-            type="button" 
+          <button
+            type="button"
             className="mobile-toggle-btn"
             onClick={toggleMenu}
             aria-expanded={isMobileMenuOpen}
-            aria-label="Toggle navigation menu"
+            aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
           >
             <span className={`hamburger-bar ${isMobileMenuOpen ? 'open' : ''}`} />
           </button>
@@ -85,25 +66,22 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Drawer Menu */}
-      <div className={`mobile-nav-drawer ${isMobileMenuOpen ? 'open' : ''}`}>
+      <div
+        className={`mobile-nav-drawer ${isMobileMenuOpen ? 'open' : ''}`}
+        aria-hidden={!isMobileMenuOpen}
+      >
         <nav className="mobile-links" aria-label="Mobile Navigation">
-          <NavLink to="/" onClick={closeMenu} className="mobile-link" end>
-            ಮುಖಪುಟ (Home)
-          </NavLink>
           <NavLink to="/explore" onClick={closeMenu} className="mobile-link">
-            ಅನ್ವೇಷಿಸಿ (Explore)
+            Explore
           </NavLink>
           <NavLink to="/regions" onClick={closeMenu} className="mobile-link">
-            ಪ್ರದೇಶಗಳು (Regions)
+            Regions
           </NavLink>
           <NavLink to="/contribute" onClick={closeMenu} className="mobile-link">
-            + ಪದ ಸೇರಿಸಿ (Contribute)
+            Contribute
           </NavLink>
           <NavLink to="/about" onClick={closeMenu} className="mobile-link">
-            ನಮ್ಮ ಬಗ್ಗೆ (About)
-          </NavLink>
-          <NavLink to="/contact" onClick={closeMenu} className="mobile-link">
-            ಸಂಪರ್ಕ (Contact)
+            About
           </NavLink>
         </nav>
       </div>

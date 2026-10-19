@@ -2,45 +2,38 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './RegionCard.css';
 
-export default function RegionCard({ region }) {
+export default function RegionCard({ region, expressionCount }) {
   const {
     id,
     nameEn,
     nameKn,
-    districts,
     shortDescription,
     accentColor,
-    expressionCount
   } = region;
 
+  // Use passed-in count (computed from real data) or fall back to region field
+  const count = expressionCount ?? region.expressionCount ?? 0;
+
   return (
-    <article className="region-card" style={{ '--region-accent': accentColor }}>
-      <div className="region-card-top">
-        <div className="region-card-badge">
-          <span className="region-count-badge">
-            {expressionCount} {expressionCount === 1 ? 'ಪದ (Word)' : 'ಪದಗಳು (Words)'}
-          </span>
-        </div>
+    <article className="region-card">
+      {/* Accent bar */}
+      <div className="region-card-accent" style={{ backgroundColor: accentColor }} aria-hidden="true" />
+
+      <div className="region-card-body">
         <h3 className="region-title-kn kannada-text">{nameKn}</h3>
         <h4 className="region-title-en">{nameEn}</h4>
+        <p className="region-description">{shortDescription}</p>
       </div>
 
-      <p className="region-description">{shortDescription}</p>
-
-      {districts && districts.length > 0 && (
-        <div className="region-districts">
-          <span className="districts-label">ಜಿಲ್ಲೆಗಳು (Districts):</span>{' '}
-          <span className="districts-list">{districts.join(', ')}</span>
+      <div className="region-card-footer">
+        <span className="region-count">
+          {count} {count === 1 ? 'expression' : 'expressions'}
+        </span>
+        <div className="region-actions">
+          <Link to={`/regions/${id}`} className="region-btn-primary">
+            View region →
+          </Link>
         </div>
-      )}
-
-      <div className="region-card-actions">
-        <Link to={`/regions/${id}`} className="region-btn-primary">
-          ಪ್ರದೇಶದ ವಿವರ (View Region) →
-        </Link>
-        <Link to={`/explore?region=${id}`} className="region-btn-subtle">
-          ಪದಗಳನ್ನು ಅನ್ವೇಷಿಸಿ (Browse Words)
-        </Link>
       </div>
     </article>
   );
