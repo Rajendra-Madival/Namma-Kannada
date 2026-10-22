@@ -102,6 +102,8 @@ _This file is maintained by VibeCheck. Do not edit between the embed markers —
 
 ---
 
+---
+
 <!-- vibe-flow:start -->
 # Vibe Flow — Workflow Guide
 

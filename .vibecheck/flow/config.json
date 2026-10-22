@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0",
+  "projectName": "kannada",
+  "userName": "developer",
+  "skillLevel": "intermediate",
+  "outputFolder": ".vibecheck/flow",
+  "planningArtifacts": ".vibecheck\\flow\\planning-artifacts",
+  "implementationArtifacts": ".vibecheck\\flow\\implementation-artifacts",
+  "installedAt": "2026-10-20T06:27:10.111Z",
+  "ide": [
+    "cursor",
+    "claude-code",
+    "copilot"
+  ]
+}
