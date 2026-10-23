@@ -1,22 +1,36 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Navbar from './components/layout/Navbar';
-import Footer from './components/layout/Footer';
-import Home from './pages/Home';
-import Explore from './pages/Explore';
-import ExpressionDetail from './pages/ExpressionDetail';
-import Regions from './pages/Regions';
-import RegionDetail from './pages/RegionDetail';
-import Contribute from './pages/Contribute';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import EmptyState from './components/common/EmptyState';
-import Button from './components/common/Button';
-import './App.css';
+import React, { useEffect } from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
+import GlobalFlowField from "./components/features/GlobalFlowField";
+import Home from "./pages/Home";
+import Explore from "./pages/Explore";
+import ExpressionDetail from "./pages/ExpressionDetail";
+import Regions from "./pages/Regions";
+import RegionDetail from "./pages/RegionDetail";
+import Contribute from "./pages/Contribute";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import EmptyState from "./components/common/EmptyState";
+import Button from "./components/common/Button";
+import "./App.css";
+
+/**
+ * ScrollToTop ensures route changes reset scroll position to top.
+ */
+function ScrollToTop() {
+  const { pathname, search } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname, search]);
+
+  return null;
+}
 
 function NotFound() {
   return (
-    <div className="container" style={{ padding: '6rem 1rem' }}>
+    <div className="site-container" style={{ padding: "6rem 1rem", minHeight: "60vh" }}>
       <EmptyState
         title="೪೦೪ - ಪುಟ ಕಂಡುಬಂದಿಲ್ಲ (Page Not Found)"
         description="The page you are looking for does not exist or has been moved."
@@ -32,26 +46,38 @@ function NotFound() {
   );
 }
 
+/**
+ * AppLayout wraps all routes in the unified Namma Kannada chrome.
+ * Single layout, single website, unified aesthetic.
+ */
+function AppLayout({ children }) {
+  return (
+    <div className="app-shell">
+      <GlobalFlowField />
+      <Navbar />
+      <main id="main-content" className="app-main">
+        {children}
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <BrowserRouter>
-      <div className="app-shell">
-        <Navbar />
-        <main id="main-content" className="app-main">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/explore" element={<Explore />} />
-            <Route path="/explore/:expressionId" element={<ExpressionDetail />} />
-            <Route path="/regions" element={<Regions />} />
-            <Route path="/regions/:regionId" element={<RegionDetail />} />
-            <Route path="/contribute" element={<Contribute />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<AppLayout><Home /></AppLayout>} />
+        <Route path="/explore" element={<AppLayout><Explore /></AppLayout>} />
+        <Route path="/explore/:expressionId" element={<AppLayout><ExpressionDetail /></AppLayout>} />
+        <Route path="/regions" element={<AppLayout><Regions /></AppLayout>} />
+        <Route path="/regions/:regionId" element={<AppLayout><RegionDetail /></AppLayout>} />
+        <Route path="/contribute" element={<AppLayout><Contribute /></AppLayout>} />
+        <Route path="/about" element={<AppLayout><About /></AppLayout>} />
+        <Route path="/contact" element={<AppLayout><Contact /></AppLayout>} />
+        <Route path="*" element={<AppLayout><NotFound /></AppLayout>} />
+      </Routes>
     </BrowserRouter>
   );
 }

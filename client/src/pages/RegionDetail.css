@@ -131,3 +131,137 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+/* Honesty Callout */
+.region-honesty-note {
+  margin-top: 1.5rem;
+  padding: 12px 18px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(222, 207, 177, 0.9);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  color: var(--color-ink-muted);
+  line-height: 1.6;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  max-width: 860px;
+}
+
+.honesty-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+/* Domain Filters Bar */
+.region-filters-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 1.25rem;
+  padding: 14px 18px;
+  background: rgba(255, 248, 231, 0.6);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+}
+
+@media (min-width: 768px) {
+  .region-filters-bar {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.domain-filters-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-ink-muted);
+  min-width: 110px;
+}
+
+.domain-pills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.domain-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-surface-white);
+  color: var(--color-ink-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.domain-pill:hover {
+  border-color: var(--color-karnataka-red);
+  color: var(--color-karnataka-red);
+}
+
+.domain-pill.is-active {
+  background: var(--color-karnataka-red);
+  border-color: var(--color-karnataka-red);
+  color: #fff;
+  font-weight: 600;
+}
+
+.domain-count-badge {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+/* Specificity Filter Row */
+.specificity-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 2rem;
+  font-size: 0.875rem;
+}
+
+.specificity-label {
+  font-weight: 600;
+  color: var(--color-ink-muted);
+}
+
+.specificity-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.spec-btn {
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-bg-page);
+  color: var(--color-ink);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.spec-btn:hover {
+  border-color: var(--color-ink-light);
+}
+
+.spec-btn.active {
+  background: var(--color-ink);
+  color: #fff;
+  border-color: var(--color-ink);
+  font-weight: 600;
+}

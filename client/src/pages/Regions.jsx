@@ -12,14 +12,16 @@ export default function Regions() {
 
   return (
     <div className="regions-page">
-      <div className="container">
+      <div className="site-container">
 
         <div className="regions-page-header">
+          <div className="eyebrow" style={{ marginBottom: '8px' }}>
+            <span className="eyebrow-rule" /> Regional Zones of Karnataka
+          </div>
           <h1 className="regions-page-title">Dialect Regions</h1>
           <p className="regions-page-subtitle">
-            Karnataka's geographic and cultural diversity shapes how Kannada is spoken. Each region below
-            has its own vocabulary, rhythm, and character. Records here are community-curated samples and
-            do not claim to represent every speaker or sub-dialect within a region.
+            Karnataka&apos;s geographic and cultural diversity shapes how Kannada is spoken. Each region below
+            has its own vocabulary, cadence, and idiom. Explore documented expressions across these six provisional zones.
           </p>
         </div>
 

@@ -36,25 +36,31 @@ export default function ExpressionDetail() {
     standardKannada,
     regionId,
     regionName,
+    domain,
     usageExample,
     variants,
     audioUrl,
     notes,
-    isVerified,
-    isSample,
+    isDialectSpecific,
     contributor,
   } = expression;
 
-  const regionInfo = REGIONS.find((r) => r.id === regionId);
+  const regionInfo = getRegionById(regionId) || REGIONS.find((r) => r.id === regionId);
 
   return (
     <div className="expression-detail-page">
-      <div className="container">
+      <div className="site-container">
 
         {/* Breadcrumb */}
         <nav className="detail-breadcrumb" aria-label="Breadcrumb">
           <Link to="/explore">Explore</Link>
           <span aria-hidden="true">/</span>
+          {regionInfo && (
+            <>
+              <Link to={`/regions/${regionInfo.id}`}>{regionInfo.nameEn}</Link>
+              <span aria-hidden="true">/</span>
+            </>
+          )}
           <span className="current-crumb kannada-text">{kannada}</span>
         </nav>
 
@@ -64,14 +70,25 @@ export default function ExpressionDetail() {
           <div className="detail-main">
 
             {/* Status badges */}
-            <div className="detail-badges">
-              <Link to={`/regions/${regionId}`} className="badge badge-region">
-                {regionName}
-              </Link>
-              {isVerified ? (
-                <span className="badge badge-verified">✓ Verified</span>
+            <div className="detail-badges" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+              {regionInfo && (
+                <Link to={`/regions/${regionInfo.id}`} className="badge badge-region">
+                  {regionInfo.nameEn}
+                </Link>
+              )}
+              {domain && (
+                <span className="badge badge-domain" style={{ backgroundColor: '#F5E9CB', color: '#575248', textTransform: 'capitalize' }}>
+                  {domain.replace('-', ' ')}
+                </span>
+              )}
+              {isDialectSpecific ? (
+                <span className="badge badge-verified" style={{ backgroundColor: '#E8F5E9', color: '#2E7D32' }}>
+                  ✓ Verified Regional Expression
+                </span>
               ) : (
-                <span className="badge badge-sample">Sample fixture</span>
+                <span className="badge badge-sample" style={{ backgroundColor: '#F1F3F5', color: '#575248' }}>
+                  Common Kannada Heritage
+                </span>
               )}
             </div>
 

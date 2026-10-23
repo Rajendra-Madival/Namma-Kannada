@@ -1,151 +1,97 @@
-.footer-wrapper {
-  background-color: var(--color-ink);
-  color: var(--color-temple-sand);
+/* ── Unified Footer.css ── */
+
+.site-footer {
+  border-top: 1px solid rgba(222, 207, 177, 0.8);
+  background: #f5eedc;
+  padding: 64px 0 32px;
   margin-top: auto;
-  padding-top: var(--space-12);
-  border-top: 3px solid var(--color-karnataka-red);
 }
 
-.footer-container {
+.footer-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-8);
-  padding-bottom: var(--space-10);
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
 }
 
-@media (min-width: 640px) {
-  .footer-container {
-    grid-template-columns: repeat(2, 1fr);
+@media (max-width: 900px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
   }
 }
 
-@media (min-width: 1024px) {
-  .footer-container {
-    grid-template-columns: 1.6fr 1fr 1fr;
+@media (max-width: 580px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
   }
-}
-
-.footer-col {
-  display: flex;
-  flex-direction: column;
 }
 
 .footer-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  margin-bottom: var(--space-3);
-  text-decoration: none;
-}
-
-.brand-flag-small {
-  width: 8px;
-  height: 20px;
-  background: linear-gradient(to bottom, var(--color-kannada-gold) 50%, var(--color-karnataka-red) 50%);
-  border-radius: 2px;
-}
-
-.footer-brand-title {
-  font-size: var(--font-size-2xl);
-  font-weight: 800;
-  color: var(--color-kannada-gold);
-}
-
-.footer-tagline {
-  font-size: var(--font-size-sm);
-  font-weight: 600;
-  color: #FFFFFF;
-  margin-bottom: var(--space-2);
-}
-
-.footer-notice {
-  font-size: var(--font-size-xs);
-  line-height: 1.6;
-  color: var(--color-temple-sand);
-  opacity: 0.8;
-}
-
-.footer-heading {
-  font-size: var(--font-size-sm);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-kannada-gold);
-  margin-bottom: var(--space-4);
-}
-
-.footer-links {
-  list-style: none;
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: 16px;
 }
 
-.footer-links a {
-  font-size: var(--font-size-sm);
-  color: var(--color-temple-sand);
-  transition: color var(--transition-fast), padding-left var(--transition-fast);
+.footer-description {
+  max-width: 340px;
+  color: #6b6258;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
 }
 
-.footer-links a:hover {
-  color: var(--color-kannada-gold);
-  padding-left: var(--space-1);
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.footer-notice-box {
-  background-color: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(233, 225, 213, 0.2);
-  border-radius: var(--radius-md);
-  padding: var(--space-3);
+.footer-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: #c62828;
+  margin-bottom: 4px;
 }
 
-.footer-notice-box p {
-  font-size: var(--font-size-xs);
-  line-height: 1.5;
-  color: var(--color-temple-sand);
+.footer-column a {
+  color: #575248;
+  text-decoration: none;
+  font-size: 0.925rem;
+  transition: color 0.15s ease, transform 0.15s ease;
+  width: fit-content;
 }
 
-.footer-notice-box strong {
-  color: var(--color-kannada-gold);
+.footer-column a:hover {
+  color: #c62828;
+  transform: translateX(2px);
+}
+
+.footer-principle-item {
+  color: #7e786b;
+  font-size: 0.875rem;
+  line-height: 1.4;
 }
 
 .footer-bottom {
-  border-top: 1px solid rgba(233, 225, 213, 0.15);
-  padding: var(--space-4) 0;
-  background-color: #1E1C18;
-}
-
-.footer-bottom-container {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(222, 207, 177, 0.7);
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-2);
-  text-align: center;
+  justify-content: space-between;
+  gap: 16px;
+  color: #7e786b;
+  font-size: 0.85rem;
 }
 
-@media (min-width: 768px) {
-  .footer-bottom-container {
-    flex-direction: row;
-    justify-content: space-between;
+@media (max-width: 768px) {
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
   }
-}
-
-.footer-copy {
-  font-size: var(--font-size-xs);
-  color: var(--color-temple-sand);
-}
-
-.footer-links-inline {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  font-size: var(--font-size-xs);
-}
-
-.footer-links-inline a {
-  color: var(--color-temple-sand);
-}
-
-.footer-links-inline a:hover {
-  color: var(--color-kannada-gold);
 }

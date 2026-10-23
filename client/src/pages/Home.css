@@ -1,9 +1,9 @@
-.home-page {
+﻿.home-page {
   display: flex;
   flex-direction: column;
 }
 
-/* ── Hero ── */
+/* â”€â”€ Hero â”€â”€ */
 .hero-section {
   padding: var(--space-16) 0 var(--space-12);
   border-bottom: 1px solid var(--color-border-subtle);
@@ -54,7 +54,7 @@
   color: var(--color-karnataka-red);
 }
 
-/* ── Shared section layout ── */
+/* â”€â”€ Shared section layout â”€â”€ */
 .home-section {
   padding: var(--space-12) 0;
   border-bottom: 1px solid var(--color-border-subtle);
@@ -65,10 +65,111 @@
 }
 
 .home-section-alt {
-  background-color: var(--color-warm-ivory-alt);
+  background-color: rgba(250, 242, 227, 0.72);
+  backdrop-filter: blur(4px);
 }
 
-/* ── Intro block ── */
+/* â”€â”€ Karnataka Map section â”€â”€ */
+.map-section {
+  background: linear-gradient(135deg, rgba(255, 249, 237, 0.78) 0%, rgba(250, 242, 227, 0.82) 100%);
+  overflow: hidden;
+  position: relative;
+  backdrop-filter: blur(4px);
+}
+
+.map-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(198,40,40,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.map-section-inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-10);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .map-section-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+  }
+}
+
+.map-text-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.map-visual-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.map-region-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-md);
+  color: white !important;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border: 2px solid transparent;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  animation: mapCtaSlideIn 0.35s ease;
+}
+
+.map-region-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+@keyframes mapCtaSlideIn {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Generic btn classes used inline */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  border: 2px solid transparent;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.btn-primary {
+  background: var(--color-karnataka-red);
+  color: #FFFFFF;
+  border-color: var(--color-karnataka-red);
+}
+
+.btn-primary:hover {
+  background: var(--color-karnataka-red-hover);
+  color: #FFFFFF;
+}
+
+.btn-md {
+  padding: 0.65rem 1.4rem;
+  font-size: 0.95rem;
+}
+
+/* â”€â”€ Intro block â”€â”€ */
 .intro-block {
   max-width: 680px;
   margin-bottom: var(--space-8);
@@ -87,7 +188,7 @@
   line-height: 1.7;
 }
 
-/* ── Region intro list ── */
+/* â”€â”€ Region intro list â”€â”€ */
 .region-intro-list {
   list-style: none;
   display: grid;
@@ -140,7 +241,7 @@
   color: var(--color-ink-muted);
 }
 
-/* ── Section header ── */
+/* â”€â”€ Section header â”€â”€ */
 .section-header {
   display: flex;
   flex-direction: column;
@@ -181,7 +282,7 @@
   margin-bottom: var(--space-6);
 }
 
-/* ── Expressions grid ── */
+/* â”€â”€ Expressions grid â”€â”€ */
 .expressions-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -200,7 +301,7 @@
   }
 }
 
-/* ── Contribution invite ── */
+/* â”€â”€ Contribution invite â”€â”€ */
 .contribute-invite {
   display: flex;
   flex-direction: column;
@@ -244,3 +345,4 @@
   color: var(--color-karnataka-red);
   margin-bottom: var(--space-1);
 }
+

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import './AudioPlayer.css';
 
 /**
@@ -16,14 +16,15 @@ export default function AudioPlayer({
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [hasError, setHasError] = useState(false);
+  const [prevAudioUrl, setPrevAudioUrl] = useState(audioUrl);
   const audioRef = useRef(null);
 
-  useEffect(() => {
-    // Reset state if URL changes
+  if (prevAudioUrl !== audioUrl) {
+    setPrevAudioUrl(audioUrl);
     setIsPlaying(false);
     setCurrentTime(0);
     setHasError(false);
-  }, [audioUrl]);
+  }
 
   const togglePlay = () => {
     if (!audioRef.current || !audioUrl) return;

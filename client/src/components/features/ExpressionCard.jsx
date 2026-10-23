@@ -10,9 +10,9 @@ export default function ExpressionCard({ expression }) {
     meaning,
     regionId,
     regionName,
+    domain,
     audioUrl,
-    isVerified,
-    isSample,
+    isDialectSpecific,
   } = expression;
 
   return (
@@ -22,14 +22,18 @@ export default function ExpressionCard({ expression }) {
         <Link to={`/explore?region=${regionId}`} className="badge badge-region">
           {regionName}
         </Link>
-        {isSample && !isVerified && (
-          <span className="badge badge-sample" title="Sample development record">
-            Sample
+        {domain && (
+          <span className="badge badge-domain" style={{ backgroundColor: '#F5E9CB', color: '#575248', textTransform: 'capitalize' }}>
+            {domain.replace('-', ' ')}
           </span>
         )}
-        {isVerified && (
-          <span className="badge badge-verified" title="Reviewed by native speakers">
-            Verified
+        {isDialectSpecific ? (
+          <span className="badge badge-verified" title="Verified regional dialect expression">
+            Dialect idiom
+          </span>
+        ) : (
+          <span className="badge badge-sample" title="Common heritage Kannada expression">
+            Common
           </span>
         )}
       </div>

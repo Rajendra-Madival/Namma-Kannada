@@ -2,20 +2,23 @@ import React, { useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import FormField from '../components/common/FormField';
 import Button from '../components/common/Button';
-import { REGIONS } from '../data/mockData';
+import { REGIONS, DOMAINS, getRegionById } from '../data/mockData';
 import './Contribute.css';
 
 const UNKNOWN_REGION_VALUE = '__unknown__';
 
 export default function Contribute() {
   const [searchParams] = useSearchParams();
-  const preselectedRegion = searchParams.get('region') || '';
+  const rawPreselectedRegion = searchParams.get('region') || '';
+  const resolvedRegion = getRegionById(rawPreselectedRegion)?.id || rawPreselectedRegion;
 
   const [formData, setFormData] = useState({
     kannada: '',
     transliteration: '',
     meaning: '',
-    regionId: preselectedRegion,
+    regionId: resolvedRegion,
+    domain: 'greetings',
+    locality: '',
     usageExampleKn: '',
     usageExampleEn: '',
     contributorName: '',
@@ -23,6 +26,7 @@ export default function Contribute() {
   });
 
   const [errors, setErrors] = useState({});
+  const [submissionError, setSubmissionError] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submittedEntry, setSubmittedEntry] = useState(null);
@@ -40,6 +44,9 @@ export default function Contribute() {
         return next;
       });
     }
+    if (submissionError) {
+      setSubmissionError(null);
+    }
   };
 
   const validateForm = () => {
@@ -48,36 +55,74 @@ export default function Contribute() {
       newErrors.kannada = 'Kannada word or expression is required.';
     }
     if (!formData.meaning.trim()) {
-      newErrors.meaning = 'Meaning and usage is required.';
+      newErrors.meaning = 'Meaning and usage description is required.';
     }
     if (!formData.regionId) {
-      newErrors.regionId = 'Please select a region. Choose "Unknown / Other" if unsure.';
+      newErrors.regionId = 'Please select a regional dialect zone.';
+    }
+    if (!formData.domain) {
+      newErrors.domain = 'Please select a life domain for this word.';
     }
     if (!formData.contributorConsent) {
       newErrors.contributorConsent =
-        'Please confirm this is authentic regional usage before submitting.';
+        'Please confirm this expression is authentic regional usage before submitting.';
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
 
     setIsSubmitting(true);
+    setSubmissionError(null);
 
-    // Simulate API call — no backend yet; marks clearly as pending
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmittedEntry({
+    const payload = {
+      word: formData.kannada.trim(),
+      kannada: formData.kannada.trim(),
+      transliteration: formData.transliteration.trim(),
+      meaning: formData.meaning.trim(),
+      regionId: formData.regionId,
+      domain: formData.domain,
+      locality: formData.locality.trim(),
+      exampleSentence: formData.usageExampleKn.trim(),
+      usageExampleKn: formData.usageExampleKn.trim(),
+      usageExampleEn: formData.usageExampleEn.trim(),
+      contributorName: formData.contributorName.trim(),
+      contributorConsent: formData.contributorConsent,
+    };
+
+    try {
+      const response = await fetch('/api/contributions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json().catch(() => null);
+
+      if (!response.ok) {
+        throw new Error(data?.error || `Submission failed with status code ${response.status}`);
+      }
+
+      setSubmittedEntry(data?.entry || {
         ...formData,
-        id: `pending-${Date.now()}`,
+        id: `contrib-${Date.now()}`,
         status: 'PENDING_REVIEW',
         submittedAt: new Date().toISOString(),
       });
       setIsSubmitted(true);
-    }, 600);
+    } catch (err) {
+      console.error('Contribution submission error:', err);
+      setSubmissionError(
+        err.message || 'Unable to submit contribution to the server. Please verify your connection and try again.'
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {
@@ -86,42 +131,45 @@ export default function Contribute() {
       transliteration: '',
       meaning: '',
       regionId: '',
+      domain: 'greetings',
+      locality: '',
       usageExampleKn: '',
       usageExampleEn: '',
       contributorName: '',
       contributorConsent: false,
     });
     setErrors({});
+    setSubmissionError(null);
     setIsSubmitted(false);
     setSubmittedEntry(null);
   };
 
-  // ── Success state ──
+  // ── Success view ──
   if (isSubmitted && submittedEntry) {
     const selectedRegionObj = REGIONS.find((r) => r.id === submittedEntry.regionId);
+    const selectedDomainObj = DOMAINS.find((d) => d.id === submittedEntry.domain);
 
     return (
       <div className="contribute-page">
-        <div className="container">
+        <div className="site-container">
           <div className="submission-success-card">
             <div className="success-icon" aria-hidden="true">✓</div>
-            <h1 className="success-title kannada-text">ಧನ್ಯವಾದಗಳು!</h1>
+            <h1 className="success-title kannada-text">ಧನ್ಯವಾದಗಳು! (Thank you!)</h1>
             <p className="success-desc">
               Your contribution for{' '}
-              <strong className="kannada-text">"{submittedEntry.kannada}"</strong>{' '}
-              {selectedRegionObj ? `(${selectedRegionObj.nameEn})` : ''} has been received.
+              <strong className="kannada-text">&ldquo;{submittedEntry.kannada}&rdquo;</strong>{' '}
+              {selectedRegionObj ? `(${selectedRegionObj.nameEn})` : ''} has been successfully recorded in the review queue.
             </p>
 
             <div className="status-pill">
               <span className="status-dot" aria-hidden="true" />
-              <strong>Pending review</strong>
+              <strong>Status: {submittedEntry.status || 'Pending review'}</strong>
             </div>
 
             <div className="review-notice">
               <p>
-                Contributions do not appear in public search until reviewed and confirmed by authorized
-                native reviewers. This frontend prototype records submissions locally — backend
-                integration is planned for a future phase.
+                <strong>Review protocol:</strong> All submissions are cross-checked with native regional speakers before publication to ensure authenticity.
+                Verified entries will appear in the public explorer under {selectedDomainObj?.nameEn || 'the selected category'}.
               </p>
             </div>
 
@@ -130,7 +178,7 @@ export default function Contribute() {
                 Contribute another word
               </Button>
               <Link to="/explore">
-                <Button variant="outline">Back to Explore</Button>
+                <Button variant="secondary">Browse Explore</Button>
               </Link>
             </div>
           </div>
@@ -139,23 +187,40 @@ export default function Contribute() {
     );
   }
 
-  // ── Form ──
+  // ── Form view ──
   return (
     <div className="contribute-page">
-      <div className="container">
+      <div className="site-container">
 
         <div className="contribute-header">
+          <div className="eyebrow" style={{ marginBottom: '8px' }}>
+            <span className="eyebrow-rule" /> Community Language Archive
+          </div>
           <h1 className="contribute-title">Contribute a word</h1>
           <p className="contribute-subtitle">
-            Share a regional Kannada word, expression, or phrase from your hometown. All contributions
-            are reviewed before publication.
-          </p>
-          <p className="backend-notice">
-            <strong>Note:</strong> This form is live on the frontend but backend storage is not yet
-            implemented. Your submission will be acknowledged locally and not persisted until the
-            backend goes live.
+            Share a regional Kannada word, expression, or idiom from your corner of Karnataka.
+            All contributions undergo careful community review before publication.
           </p>
         </div>
+
+        {/* Prominent error notification if backend failed */}
+        {submissionError && (
+          <div
+            className="submission-error-banner"
+            role="alert"
+            style={{
+              background: '#FDF2F2',
+              border: '1px solid #F8B4B4',
+              borderRadius: '8px',
+              padding: '16px 20px',
+              marginBottom: '24px',
+              color: '#C62828',
+              fontSize: '0.95rem',
+            }}
+          >
+            <strong>Submission could not be completed:</strong> {submissionError}
+          </div>
+        )}
 
         <div className="contribute-form-container">
           <form className="contribute-form" onSubmit={handleSubmit} noValidate>
@@ -166,7 +231,7 @@ export default function Contribute() {
               label="Kannada word or expression"
               required
               error={errors.kannada}
-              hint="Type in Kannada script — e.g. ಬ್ಯಾಡ್ರಿ, ಮಾರ್ರೆ, ಅತ್ತಿತ್ತ"
+              hint="Type in Kannada script — e.g. ಬ್ಯಾಡ್ರಿ, ಮಾರ್ರೆ, ಅತ್ತಿತ್ತ, ಗಿರ್ಮಿಟ್"
             >
               <input
                 id="kannada"
@@ -184,8 +249,8 @@ export default function Contribute() {
             {/* Transliteration */}
             <FormField
               id="transliteration"
-              label="Transliteration (optional)"
-              hint="Phonetic romanization — e.g. Byādri, Mārre"
+              label="Transliteration (recommended)"
+              hint="Phonetic romanization — e.g. Byādri, Mārre, Girmit"
             >
               <input
                 id="transliteration"
@@ -204,7 +269,7 @@ export default function Contribute() {
               label="Meaning and usage"
               required
               error={errors.meaning}
-              hint="Explain what the word means and when it is used — include the tone (e.g. affectionate, polite refusal)."
+              hint="Explain what the word means, how it is used, and its cultural tone (e.g. polite refusal, affectionate teasing)."
             >
               <textarea
                 id="meaning"
@@ -217,13 +282,13 @@ export default function Contribute() {
               />
             </FormField>
 
-            {/* Region */}
+            {/* Region dropdown */}
             <FormField
               id="regionId"
               label="Region where this expression is used"
               required
               error={errors.regionId}
-              hint="Select the primary region. Choose Unknown / Other if you are unsure."
+              hint="Select the regional dialect zone. Choose Unknown / Other if unsure."
             >
               <select
                 id="regionId"
@@ -235,25 +300,64 @@ export default function Contribute() {
                 <option value="">— Select a region —</option>
                 {REGIONS.map((r) => (
                   <option key={r.id} value={r.id}>
-                    {r.nameKn} ({r.nameEn})
+                    {r.nameEn} ({r.nameKn})
                   </option>
                 ))}
-                <option value={UNKNOWN_REGION_VALUE}>Unknown / Other</option>
+                <option value={UNKNOWN_REGION_VALUE}>Unknown / Other Karnataka</option>
               </select>
+            </FormField>
+
+            {/* Domain category */}
+            <FormField
+              id="domain"
+              label="Life Domain"
+              required
+              error={errors.domain}
+              hint="Select the category that best fits this expression."
+            >
+              <select
+                id="domain"
+                name="domain"
+                value={formData.domain}
+                onChange={handleChange}
+                required
+              >
+                {DOMAINS.map((d) => (
+                  <option key={d.id} value={d.id}>
+                    {d.nameEn} ({d.nameKn})
+                  </option>
+                ))}
+              </select>
+            </FormField>
+
+            {/* Locality */}
+            <FormField
+              id="locality"
+              label="Specific locality, taluk, or town (optional)"
+              hint="e.g. Hubballi, Kundapura, Mandya, Kalaburagi, Madikeri"
+            >
+              <input
+                id="locality"
+                name="locality"
+                type="text"
+                placeholder="e.g. Kundapura"
+                value={formData.locality}
+                onChange={handleChange}
+              />
             </FormField>
 
             {/* Usage example — optional */}
             <FormField
               id="usageExampleKn"
               label="Example sentence in Kannada (optional)"
-              hint="A short conversational sentence using this expression."
+              hint="A short conversational sentence showing how the word lives in speech."
             >
               <input
                 id="usageExampleKn"
                 name="usageExampleKn"
                 type="text"
                 className="kannada-text"
-                placeholder="e.g. ಇನ್ನೊಂದು ರೊಟ್ಟಿ ತಿನ್ರಿ ಅಂದ್ರೆ, ಬ್ಯಾಡ್ರಿ ಸಾಕು ಅಂದ್ರು."
+                placeholder="e.g. ಇನ್ನೊಂದು ಚಪಾತಿ ತಿನ್ರಿ ಅಂದ್ರೆ, ಬ್ಯಾಡ್ರಿ ಸಾಕು ಅಂದ್ರು."
                 value={formData.usageExampleKn}
                 onChange={handleChange}
               />
@@ -267,7 +371,7 @@ export default function Contribute() {
                 id="usageExampleEn"
                 name="usageExampleEn"
                 type="text"
-                placeholder="e.g. When offered another roti, they politely said no thanks."
+                placeholder="e.g. When offered another chapati, they said no thanks."
                 value={formData.usageExampleEn}
                 onChange={handleChange}
               />
@@ -277,7 +381,7 @@ export default function Contribute() {
             <FormField
               id="contributorName"
               label="Your name or handle (optional)"
-              hint="For attribution. Leave empty if you prefer anonymous submission."
+              hint="For community acknowledgment. Leave empty if you prefer anonymous submission."
             >
               <input
                 id="contributorName"
@@ -290,7 +394,7 @@ export default function Contribute() {
               />
             </FormField>
 
-            {/* Consent */}
+            {/* Consent checkbox */}
             <div className="consent-checkbox-group">
               <label className="checkbox-label">
                 <input
@@ -301,8 +405,8 @@ export default function Contribute() {
                   required
                 />
                 <span>
-                  I confirm this word is authentic to the selected region and grant permission
-                  for educational and community archiving. *
+                  I confirm this word is authentic to the selected regional speech and grant permission
+                  for community archiving and educational preservation. *
                 </span>
               </label>
               {errors.contributorConsent && (
