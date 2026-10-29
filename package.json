@@ -1,4 +1,9 @@
 {
+  "name": "namma-kannada",
+  "private": true,
+  "scripts": {
+    "build": "npm --prefix client run build"
+  },
   "dependencies": {
     "animejs": "^4.5.0",
     "motion": "^14.6.0"

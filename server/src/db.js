@@ -6,8 +6,10 @@ const { Pool } = require('pg');
 // Create a connection pool using the DATABASE_URL defined in .env
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  // Uncomment the following line if your Supabase instance requires SSL without verification
-  // ssl: { rejectUnauthorized: false },
+  // Supabase PostgreSQL requires SSL for cloud connections
+  ssl: process.env.DATABASE_URL && !process.env.DATABASE_URL.includes('localhost')
+    ? { rejectUnauthorized: false }
+    : undefined,
 });
 
 module.exports = { pool };
