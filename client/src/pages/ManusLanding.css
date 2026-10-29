@@ -1216,6 +1216,7 @@
 
   .manus-landing .hero-note-card {
     right: 20%;
+    
   }
 
   .manus-landing .hero-script {
@@ -1593,6 +1594,7 @@
   border: 1px solid rgba(255, 255, 255, 0.18) !important;
   color: #fff !important;
   backdrop-filter: blur(12px);
+  top: -155px;
 }
 
 .manus-landing .hero-note-card .note-stamp {
