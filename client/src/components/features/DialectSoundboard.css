@@ -1,0 +1,234 @@
+/* DialectSoundboard.css */
+.soundboard-section {
+  margin: 54px auto;
+}
+
+.soundboard-card {
+  background: linear-gradient(135deg, #24190d 0%, #150f08 100%);
+  border: 1px solid rgba(244, 196, 48, 0.28);
+  border-radius: 20px;
+  padding: 38px 40px;
+  color: #fff9ed;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+}
+
+.soundboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.soundboard-title {
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.25;
+  margin: 8px 0 10px;
+}
+
+.soundboard-subtitle {
+  font-size: 0.96rem;
+  color: rgba(255, 249, 237, 0.8);
+  max-width: 650px;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.soundboard-shuffle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: rgba(244, 196, 48, 0.15);
+  border: 1.5px solid #f4c430;
+  color: #f4c430;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.soundboard-shuffle-btn:hover {
+  background: #f4c430;
+  color: #24190d;
+  transform: translateY(-2px);
+}
+
+/* ── Tabs Bar ── */
+.soundboard-tabs-bar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  margin-bottom: 28px;
+  scrollbar-width: thin;
+}
+
+.soundboard-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 249, 237, 0.85);
+  cursor: pointer;
+  font-size: 0.88rem;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.soundboard-tab:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.soundboard-tab.is-active {
+  background: #ffffff;
+  color: #1a1209;
+  font-weight: 700;
+  border-color: #ffffff;
+  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.2);
+}
+
+.tab-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.tab-text-en {
+  font-size: 0.76rem;
+  opacity: 0.7;
+}
+
+/* ── Phrases Grid ── */
+.soundboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.soundboard-item-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top-width: 4px;
+  border-radius: 14px;
+  padding: 18px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(4px);
+}
+
+.soundboard-item-card:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+}
+
+.soundboard-item-card.is-playing {
+  background: rgba(244, 196, 48, 0.16);
+  border-color: #f4c430;
+  box-shadow: 0 0 20px rgba(244, 196, 48, 0.35);
+  animation: cardPulse 1s infinite alternate;
+}
+
+@keyframes cardPulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.02); }
+}
+
+.soundboard-item-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.soundboard-nuance-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #f4c430;
+  background: rgba(244, 196, 48, 0.15);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.soundboard-copy-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+
+.soundboard-copy-btn:hover {
+  color: #ffffff;
+}
+
+.soundboard-phrase-kn {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+
+.soundboard-phrase-tr {
+  font-size: 0.82rem;
+  color: #d8cbbb;
+  font-style: italic;
+  margin-bottom: 4px;
+}
+
+.soundboard-phrase-mean {
+  font-size: 0.82rem;
+  color: rgba(255, 249, 237, 0.7);
+  line-height: 1.4;
+}
+
+.soundboard-item-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.play-cue {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #f4c430;
+}
+
+.wave-pulse {
+  animation: wavePulse 0.5s infinite alternate;
+}
+
+@keyframes wavePulse {
+  0% { transform: scale(0.9); }
+  100% { transform: scale(1.3); }
+}
+
+@media (max-width: 768px) {
+  .soundboard-card {
+    padding: 24px;
+  }
+}

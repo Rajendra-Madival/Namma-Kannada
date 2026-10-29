@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import AudioPlayer from '../components/features/AudioPlayer';
 import Button from '../components/common/Button';
 import EmptyState from '../components/common/EmptyState';
-import { EXPRESSIONS, REGIONS } from '../data/mockData';
+import { EXPRESSIONS, REGIONS, getRegionById } from '../data/mockData';
 import './ExpressionDetail.css';
 
 export default function ExpressionDetail() {
@@ -39,6 +39,7 @@ export default function ExpressionDetail() {
     domain,
     usageExample,
     variants,
+    otherDialects,
     audioUrl,
     notes,
     isDialectSpecific,
@@ -146,6 +147,53 @@ export default function ExpressionDetail() {
                 <div className="standard-box">
                   <span className="standard-word kannada-text">{standardKannada}</span>
                   <span className="standard-note">As used in formal writing and textbooks</span>
+                </div>
+              </section>
+            )}
+
+            {/* In Other Regional Dialects */}
+            {otherDialects && (
+              <section className="detail-section cross-dialect-section">
+                <div className="cross-dialect-header-row">
+                  <div>
+                    <h2 className="detail-section-heading" style={{ marginBottom: '4px' }}>
+                      ಇತರ ಉಪಭಾಷೆಗಳಲ್ಲಿ ಈ ಪದ (In Other Dialects)
+                    </h2>
+                    <p className="cross-dialect-sub">
+                      How this word or meaning is expressed across Karnataka&apos;s distinct cultural regions:
+                    </p>
+                  </div>
+                  <span className="cross-dialect-badge-pill">
+                    ೬ ಪ್ರಾದೇಶಿಕ ರೂಪಗಳು (6 Regional Forms)
+                  </span>
+                </div>
+
+                <div className="cross-dialect-grid">
+                  {REGIONS.map((reg) => {
+                    const regionalTerm = otherDialects[reg.id];
+                    const isCurrent = reg.id === regionId;
+                    return (
+                      <div
+                        key={reg.id}
+                        className={`cross-dialect-card ${isCurrent ? 'is-current-region' : ''}`}
+                        style={{ borderTop: `3px solid ${reg.accentColor}` }}
+                      >
+                        <div className="cross-card-top">
+                          <span className="cross-reg-kn">{reg.nameKn}</span>
+                          <span className="cross-reg-en">{reg.nameEn}</span>
+                          {isCurrent && <span className="current-dialect-chip">Current Entry</span>}
+                        </div>
+                        <div className="cross-card-word kannada-text">
+                          {regionalTerm || kannada}
+                        </div>
+                        <div className="cross-card-footer">
+                          <Link to={`/explore?region=${reg.id}`} className="cross-card-link">
+                            Explore {reg.short} →
+                          </Link>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </section>
             )}

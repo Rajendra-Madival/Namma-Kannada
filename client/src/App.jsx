@@ -11,8 +11,14 @@ import RegionDetail from "./pages/RegionDetail";
 import Contribute from "./pages/Contribute";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import CompareDialects from "./pages/CompareDialects";
+import Translator from "./pages/Translator";
+import AmbientAudioPlayer from "./components/features/AmbientAudioPlayer";
 import EmptyState from "./components/common/EmptyState";
 import Button from "./components/common/Button";
+import { AuthProvider } from "./context/AuthContext";
 import "./App.css";
 
 /**
@@ -58,6 +64,7 @@ function AppLayout({ children }) {
       <main id="main-content" className="app-main">
         {children}
       </main>
+      <AmbientAudioPlayer />
       <Footer />
     </div>
   );
@@ -65,19 +72,28 @@ function AppLayout({ children }) {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<AppLayout><Home /></AppLayout>} />
-        <Route path="/explore" element={<AppLayout><Explore /></AppLayout>} />
-        <Route path="/explore/:expressionId" element={<AppLayout><ExpressionDetail /></AppLayout>} />
-        <Route path="/regions" element={<AppLayout><Regions /></AppLayout>} />
-        <Route path="/regions/:regionId" element={<AppLayout><RegionDetail /></AppLayout>} />
-        <Route path="/contribute" element={<AppLayout><Contribute /></AppLayout>} />
-        <Route path="/about" element={<AppLayout><About /></AppLayout>} />
-        <Route path="/contact" element={<AppLayout><Contact /></AppLayout>} />
-        <Route path="*" element={<AppLayout><NotFound /></AppLayout>} />
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <ScrollToTop />
+        <Routes>
+          {/* Auth pages — no AppLayout wrapper (standalone full-page) */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+
+          {/* Main app routes */}
+          <Route path="/" element={<AppLayout><Home /></AppLayout>} />
+          <Route path="/explore" element={<AppLayout><Explore /></AppLayout>} />
+          <Route path="/explore/:expressionId" element={<AppLayout><ExpressionDetail /></AppLayout>} />
+          <Route path="/compare" element={<AppLayout><CompareDialects /></AppLayout>} />
+          <Route path="/translator" element={<AppLayout><Translator /></AppLayout>} />
+          <Route path="/regions" element={<AppLayout><Regions /></AppLayout>} />
+          <Route path="/regions/:regionId" element={<AppLayout><RegionDetail /></AppLayout>} />
+          <Route path="/contribute" element={<AppLayout><Contribute /></AppLayout>} />
+          <Route path="/about" element={<AppLayout><About /></AppLayout>} />
+          <Route path="/contact" element={<AppLayout><Contact /></AppLayout>} />
+          <Route path="*" element={<AppLayout><NotFound /></AppLayout>} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }

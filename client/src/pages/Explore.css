@@ -206,3 +206,142 @@
   gap: var(--space-3);
   justify-content: center;
 }
+
+/* ── Cross Dialect Teaser Banner ── */
+.cross-dialect-teaser-banner {
+  background: linear-gradient(135deg, #fff7e6 0%, #fffbf2 100%);
+  border: 1px solid #fedda6;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  box-shadow: 0 3px 12px rgba(185, 131, 47, 0.08);
+}
+
+.teaser-content {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 260px;
+}
+
+.teaser-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #c62828;
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.teaser-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.teaser-text strong {
+  font-size: 0.95rem;
+  color: #21170a;
+}
+
+.teaser-text span {
+  font-size: 0.82rem;
+  color: #6a6050;
+}
+
+.teaser-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  background: #c62828;
+  color: #ffffff;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.teaser-action-btn:hover {
+  background: #9b1e1e;
+  transform: translateY(-1px);
+}
+
+/* ── Pagination Controls ── */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 36px;
+  padding: 18px 0;
+  flex-wrap: wrap;
+}
+
+.page-numbers {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.page-btn {
+  min-width: 38px;
+  height: 38px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid #ded4c3;
+  background: #ffffff;
+  color: #3b3225;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.page-btn:hover:not(:disabled) {
+  border-color: #c62828;
+  color: #c62828;
+  background: #fff8f8;
+}
+
+.page-btn.active {
+  background: #c62828;
+  border-color: #c62828;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(198, 40, 40, 0.25);
+}
+
+.page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  border-color: #eee7db;
+}
+
+.page-btn.nav-btn {
+  padding: 0 14px;
+  gap: 4px;
+}
+
+.pagination-ellipsis {
+  color: #8c8270;
+  padding: 0 4px;
+  font-weight: bold;
+}
+

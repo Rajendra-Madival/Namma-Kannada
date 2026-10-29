@@ -1,0 +1,78 @@
+/* AmbientAudioPlayer.css */
+.ambient-widget-wrap {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+}
+
+.ambient-toggle-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #ffffff;
+  color: #3b3123;
+  border: 1.5px solid #dfd2be;
+  border-radius: 999px;
+  box-shadow: 0 6px 20px rgba(33, 23, 10, 0.12);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
+}
+
+.ambient-toggle-pill:hover {
+  transform: translateY(-2px);
+  border-color: #c62828;
+  color: #c62828;
+  box-shadow: 0 8px 24px rgba(198, 40, 40, 0.18);
+}
+
+.ambient-toggle-pill.is-active {
+  background: linear-gradient(135deg, #2b1f13 0%, #150f08 100%);
+  color: #f4c430;
+  border-color: #f4c430;
+  box-shadow: 0 8px 24px rgba(244, 196, 48, 0.25);
+}
+
+.ambient-icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ambient-playing-wave {
+  animation: pulseIcon 1.2s infinite ease-in-out;
+}
+
+@keyframes pulseIcon {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.ambient-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f4c430;
+  box-shadow: 0 0 10px #f4c430;
+  animation: dotGlow 1.5s infinite;
+}
+
+@keyframes dotGlow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+@media (max-width: 600px) {
+  .ambient-widget-wrap {
+    bottom: 16px;
+    right: 16px;
+  }
+  .ambient-toggle-pill {
+    padding: 8px 12px;
+    font-size: 0.78rem;
+  }
+}
