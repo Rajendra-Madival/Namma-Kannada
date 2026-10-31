@@ -1,0 +1,70 @@
+.pronounce-control {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.pronounce-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  background: #fbf6ec;
+  border: 1px solid #ebd9c0;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #7a5416;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pronounce-btn:hover {
+  background: #c62828;
+  border-color: #c62828;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.pronounce-btn:focus-visible {
+  outline: 3px solid rgba(198, 40, 40, 0.35);
+  outline-offset: 2px;
+}
+
+.pronounce-btn.is-speaking,
+.pronounce-btn.is-loading {
+  background: #c62828;
+  border-color: #c62828;
+  color: #ffffff;
+}
+
+.pronounce-btn.is-speaking {
+  animation: pronouncePulse 1.2s infinite;
+}
+
+.pronounce-spin {
+  animation: pronounceSpin 0.8s linear infinite;
+}
+
+@keyframes pronouncePulse {
+  0% { box-shadow: 0 0 0 0 rgba(198, 40, 40, 0.4); }
+  70% { box-shadow: 0 0 0 6px rgba(198, 40, 40, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(198, 40, 40, 0); }
+}
+
+@keyframes pronounceSpin {
+  to { transform: rotate(360deg); }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

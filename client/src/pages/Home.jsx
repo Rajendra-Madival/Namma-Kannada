@@ -11,8 +11,10 @@ import {
   Volume2,
   Sparkles,
 } from 'lucide-react';
-import { REGIONS, EXPRESSIONS, DOMAINS } from '../data/mockData';
+import { REGIONS, EXPRESSIONS, DOMAINS, getExpressionKannada } from '../data/mockData';
 import DialectSoundboard from '../components/features/DialectSoundboard';
+import PronounceButton from '../components/features/PronounceButton';
+import { useKannadaSpeech } from '../hooks/useKannadaSpeech';
 import './ManusLanding.css';
 
 // ── Word of the Day data (cycles through expressions) ──
@@ -280,8 +282,13 @@ export default function Home() {
   // Expressions count for the selected region
   const activeRegionExpressions = EXPRESSIONS.filter((e) => e.regionId === activeRegion.id);
 
-  // Featured sample expression for preview card
-  const featuredSample = EXPRESSIONS.find((e) => e.id === 'byadari') || EXPRESSIONS[0];
+  // Featured sample: original id was `byadari` (server sample); client archive uses `by-dri-north`.
+  const featuredSample =
+    EXPRESSIONS.find((e) => e.id === 'byadari') ||
+    EXPRESSIONS.find((e) => e.id === 'by-dri-north') ||
+    EXPRESSIONS[0];
+  const featuredKannada = getExpressionKannada(featuredSample);
+  const speech = useKannadaSpeech();
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
@@ -645,28 +652,40 @@ export default function Home() {
           </Link>
         </div>
 
-        <article className="expression-card">
+        <article className="expression-card featured-expression-card">
           <div className="expression-card-top">
             <span className="status-badge">
-              <span className="status-dot" style={{ backgroundColor: '#2E7D32' }} />
-              Verified Regional Entry
+              <span className="status-dot" style={{ backgroundColor: featuredSample.isVerified ? '#2E7D32' : '#C9A227' }} />
+              {featuredSample.isVerified ? 'Documented regional entry' : 'Archive sample'}
             </span>
             <span className="expression-ref">NK / {featuredSample.id.toUpperCase()}</span>
           </div>
 
           <div className="expression-card-body">
-            <div className="expression-placeholder" aria-hidden="true">
-              {featuredSample.kannada}
+            <div className="expression-placeholder" lang="kn" aria-hidden="true">
+              {featuredKannada}
             </div>
             <div>
               <div className="field-label">Expression · {featuredSample.transliteration}</div>
-              <h3>{featuredSample.kannada}</h3>
+              <h3 className="kannada-text featured-kannada" lang="kn">{featuredKannada}</h3>
               <p>{featuredSample.meaning}</p>
               {featuredSample.usageExample && (
-                <p style={{ marginTop: '0.5rem', fontStyle: 'italic', fontSize: '0.9rem', color: '#575248' }}>
-                  &ldquo;{featuredSample.usageExample.kannada}&rdquo; — {featuredSample.usageExample.translation}
-                </p>
+                <div className="featured-usage">
+                  <p className="featured-usage-kn" lang="kn">
+                    &ldquo;{featuredSample.usageExample.kannada}&rdquo;
+                  </p>
+                  {featuredSample.usageExample.translation && (
+                    <p className="featured-usage-en">{featuredSample.usageExample.translation}</p>
+                  )}
+                </div>
               )}
+              <div className="featured-pronounce-row">
+                <PronounceButton
+                  text={featuredKannada}
+                  audioUrl={featuredSample.audioUrl}
+                  id={`featured-${featuredSample.id}`}
+                />
+              </div>
             </div>
           </div>
 
@@ -678,13 +697,18 @@ export default function Home() {
             <div>
               <span className="field-label">Pronunciation</span>
               <strong className="muted-meta">
-                <Volume2 size={15} /> Native speaker verified
+                <Volume2 size={15} />
+                {featuredSample.audioUrl
+                  ? 'Recorded audio available'
+                  : speech.hasKannadaVoice
+                    ? 'Browser Kannada voice'
+                    : 'Kannada pronunciation ready'}
               </strong>
             </div>
             <div>
               <span className="field-label">Source status</span>
-              <strong style={{ color: '#2E7D32' }}>
-                <Check size={15} /> {featuredSample.contributor}
+              <strong style={{ color: featuredSample.isVerified ? '#2E7D32' : '#575248' }}>
+                <Check size={15} /> {featuredSample.contributor || 'Archive source'}
               </strong>
             </div>
           </div>

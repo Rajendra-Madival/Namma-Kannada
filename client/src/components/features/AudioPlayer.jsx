@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import PronounceButton from './PronounceButton';
 import './AudioPlayer.css';
 
 /**
@@ -70,12 +71,19 @@ export default function AudioPlayer({
       <div className={`audio-player-fallback ${compact ? 'compact' : ''}`}>
         <span className="audio-fallback-icon" aria-hidden="true">🎙️</span>
         <div className="audio-fallback-text">
-          <span className="fallback-title">ಧ್ವನಿ ಲಭ್ಯವಿಲ್ಲ (Audio Pending)</span>
+          <span className="fallback-title">
+            {hasError ? 'Recorded audio could not be played' : 'No native recording yet'}
+          </span>
           {!compact && (
             <span className="fallback-subtitle">
-              Authentic native recording for "{expressionKannada}" ({regionName}) has not yet been submitted or verified.
+              A verified speaker recording for "{expressionKannada}" ({regionName}) has not been submitted.
+              Click below to listen to authentic Kannada pronunciation.
             </span>
           )}
+          <PronounceButton
+            text={expressionKannada}
+            id={`detail-${expressionKannada}`}
+          />
         </div>
       </div>
     );

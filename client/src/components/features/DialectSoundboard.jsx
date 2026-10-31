@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Volume2, Sparkles, Shuffle, Check, Copy } from 'lucide-react';
 import { REGIONS } from '../../data/mockData';
+import { speakKannada, cancelKannadaSpeech } from '../../lib/kannadaSpeech';
+import { useKannadaSpeech } from '../../hooks/useKannadaSpeech';
 import './DialectSoundboard.css';
 
 const SOUNDBOARD_DATA = {
@@ -56,23 +58,19 @@ const SOUNDBOARD_DATA = {
 
 export default function DialectSoundboard() {
   const [activeRegion, setActiveRegion] = useState('north');
-  const [playingIndex, setPlayingIndex] = useState(null);
   const [copiedIndex, setCopiedIndex] = useState(null);
+  const speech = useKannadaSpeech();
 
   const regionObj = REGIONS.find((r) => r.id === activeRegion) || REGIONS[0];
   const phrases = SOUNDBOARD_DATA[activeRegion] || SOUNDBOARD_DATA.north;
 
-  const playSpeech = (text, index) => {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text.replace(/[!?,]/g, ''));
-      utterance.lang = 'kn-IN';
-      utterance.rate = 0.88;
-      setPlayingIndex(index);
-      utterance.onend = () => setPlayingIndex(null);
-      utterance.onerror = () => setPlayingIndex(null);
-      window.speechSynthesis.speak(utterance);
+  const playSpeech = (text, index, regionId = activeRegion) => {
+    const id = `soundboard-${regionId}-${index}`;
+    if (speech.speakingId === id && (speech.status === 'speaking' || speech.status === 'loading')) {
+      cancelKannadaSpeech();
+      return;
     }
+    speakKannada(text, { id });
   };
 
   const handleCopy = (text, index) => {
@@ -88,7 +86,7 @@ export default function DialectSoundboard() {
     const list = SOUNDBOARD_DATA[randomReg];
     const randomPhraseIdx = Math.floor(Math.random() * list.length);
     setTimeout(() => {
-      playSpeech(list[randomPhraseIdx].kannada, randomPhraseIdx);
+      playSpeech(list[randomPhraseIdx].kannada, randomPhraseIdx, randomReg);
     }, 150);
   };
 
@@ -145,7 +143,8 @@ export default function DialectSoundboard() {
         {/* Phrases Grid */}
         <div className="soundboard-grid">
           {phrases.map((item, idx) => {
-            const isPlaying = playingIndex === idx;
+            const isPlaying = speech.speakingId === `soundboard-${activeRegion}-${idx}` &&
+              (speech.status === 'speaking' || speech.status === 'loading');
             const isCopied = copiedIndex === idx;
 
             return (

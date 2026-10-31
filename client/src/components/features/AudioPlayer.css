@@ -79,6 +79,7 @@
 .audio-fallback-text {
   display: flex;
   flex-direction: column;
+  gap: 8px;
 }
 
 .fallback-title {

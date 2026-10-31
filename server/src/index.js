@@ -9,6 +9,7 @@ const healthRouter = require('./routes/health');
 const regionsRouter = require('./routes/regions');
 const expressionsRouter = require('./routes/expressions');
 const contributionsRouter = require('./routes/contributions');
+const ttsRouter = require('./routes/tts');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -24,6 +25,7 @@ app.use('/api/health', healthRouter);
 app.use('/api/regions', regionsRouter);
 app.use('/api/expressions', expressionsRouter);
 app.use('/api/contributions', contributionsRouter);
+app.use('/api/tts', ttsRouter);
 
 // Simple root route for quick sanity check
 app.get('/', (req, res) => {

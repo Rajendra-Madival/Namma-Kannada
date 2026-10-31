@@ -1,7 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, Compass, BookOpen, Volume2, ArrowRight, Check, Shuffle, Sparkles } from 'lucide-react';
+import { Search, ArrowRight, Shuffle } from 'lucide-react';
 import { REGIONS, CROSS_DIALECT_COMPARISONS } from '../data/mockData';
+import PronounceButton from '../components/features/PronounceButton';
 import './CompareDialects.css';
 
 export default function CompareDialects() {
@@ -37,17 +38,6 @@ export default function CompareDialects() {
   const handleRandom = () => {
     const rand = CROSS_DIALECT_COMPARISONS[Math.floor(Math.random() * CROSS_DIALECT_COMPARISONS.length)];
     setSelectedConceptId(rand.id);
-  };
-
-  // Text to speech helper for Kannada
-  const speakWord = (text) => {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'kn-IN';
-      utterance.rate = 0.9;
-      window.speechSynthesis.speak(utterance);
-    }
   };
 
   return (
@@ -142,14 +132,12 @@ export default function CompareDialects() {
               <div className="spotlight-standard-box">
                 <span className="standard-label">Standard Kannada / ಪ್ರಮಾಣ ಕನ್ನಡ:</span>
                 <div className="standard-term kannada-text">{currentItem.standard}</div>
-                <button
-                  type="button"
+                <PronounceButton
+                  text={currentItem.standard.split('(')[0]}
+                  id="compare-standard"
+                  idleLabel="Listen"
                   className="audio-speak-btn"
-                  onClick={() => speakWord(currentItem.standard.split('(')[0])}
-                  title="Pronounce"
-                >
-                  <Volume2 size={15} /> Listen
-                </button>
+                />
               </div>
             </div>
 
@@ -189,13 +177,12 @@ export default function CompareDialects() {
                     </div>
 
                     <div className="dialect-box-foot">
-                      <button
-                        type="button"
+                      <PronounceButton
+                        text={dialectData.term.split('/')[0]}
+                        id={`compare-${reg.id}`}
+                        idleLabel="Speak"
                         className="dialect-listen-btn"
-                        onClick={() => speakWord(dialectData.term.split('/')[0])}
-                      >
-                        <Volume2 size={13} /> Speak
-                      </button>
+                      />
                       <Link
                         to={`/explore?region=${reg.id}&q=${encodeURIComponent(currentItem.conceptKn.split('/')[0].trim())}`}
                         className="dialect-explore-link"

@@ -17659,6 +17659,39 @@ export const EXPRESSIONS = [
   }
 ];
 
+function stripLatinParenthetical(text) {
+  return String(text).replace(/\([^)]*\)/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+/**
+ * Resolve the Kannada-script headword for an expression.
+ * Some archive rows omit `kannada` and only store the regional form in
+ * `otherDialects` or `variants`.
+ */
+export function getExpressionKannada(expr) {
+  if (!expr) return '';
+  if (typeof expr.kannada === 'string' && expr.kannada.trim()) {
+    return expr.kannada.trim();
+  }
+  const regional = expr.otherDialects?.[expr.regionId];
+  if (regional) {
+    return stripLatinParenthetical(String(regional).split('/')[0]);
+  }
+  if (Array.isArray(expr.variants) && expr.variants[0]) {
+    return stripLatinParenthetical(String(expr.variants[0]));
+  }
+  if (expr.standardKannada) {
+    return stripLatinParenthetical(expr.standardKannada);
+  }
+  return '';
+}
+
+EXPRESSIONS.forEach((expr) => {
+  if (!expr.kannada) {
+    expr.kannada = getExpressionKannada(expr);
+  }
+});
+
 /**
  * Helper to find a region by ID or alias
  */
@@ -17691,7 +17724,7 @@ export function filterExpressions({ query = '', regionId = 'all', domainId = 'al
 
     // Text search query
     if (q) {
-      const matchKannada = expr.kannada.toLowerCase().includes(q);
+      const matchKannada = (expr.kannada || '').toLowerCase().includes(q);
       const matchTrans = expr.transliteration?.toLowerCase().includes(q);
       const matchMeaning = expr.meaning.toLowerCase().includes(q);
       const matchStandard = expr.standardKannada?.toLowerCase().includes(q);

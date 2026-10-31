@@ -931,12 +931,19 @@
   display: grid;
   place-items: center;
   width: 140px;
+  min-width: 140px;
   height: 140px;
+  padding: 10px;
   border-radius: 50%;
   background: var(--cream);
   color: var(--red);
-  font-family: "Noto Sans Kannada", Georgia, serif;
-  font-size: 33px;
+  font-family: "Noto Sans Kannada", "Noto Serif Kannada", Georgia, serif;
+  font-size: clamp(22px, 3vw, 33px);
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+  word-break: break-word;
+  overflow: hidden;
 }
 
 .manus-landing .field-label {
@@ -949,12 +956,40 @@
   text-transform: uppercase;
 }
 
-.manus-landing .expression-card-body h3 {
+.manus-landing .expression-card-body h3,
+.manus-landing .featured-kannada {
   margin-bottom: 10px;
-  font-family: Georgia, serif;
-  font-size: 28px;
-  font-weight: 400;
-  letter-spacing: -.03em;
+  font-family: "Noto Sans Kannada", "Noto Serif Kannada", Georgia, serif;
+  font-size: clamp(1.35rem, 2.4vw, 28px);
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--ink);
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.manus-landing .featured-usage {
+  margin-top: 0.65rem;
+}
+
+.manus-landing .featured-usage-kn {
+  margin: 0;
+  font-family: "Noto Sans Kannada", Georgia, serif;
+  font-style: italic;
+  font-size: 0.92rem;
+  color: #575248;
+  line-height: 1.6;
+}
+
+.manus-landing .featured-usage-en {
+  margin: 0.25rem 0 0;
+  font-size: 0.82rem;
+  color: #7a7268;
+  line-height: 1.55;
+}
+
+.manus-landing .featured-pronounce-row {
+  margin-top: 0.85rem;
 }
 
 .manus-landing .expression-card-body p {

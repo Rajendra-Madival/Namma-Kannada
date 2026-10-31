@@ -67,7 +67,7 @@ export default function Explore() {
       // Search text query
       if (q) {
         return (
-          expr.kannada.toLowerCase().includes(q) ||
+          (expr.kannada || '').toLowerCase().includes(q) ||
           expr.transliteration?.toLowerCase().includes(q) ||
           expr.meaning.toLowerCase().includes(q) ||
           expr.regionName?.toLowerCase().includes(q) ||

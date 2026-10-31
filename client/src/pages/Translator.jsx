@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Languages,
-  Volume2,
   Copy,
   Check,
   Sparkles,
@@ -12,6 +11,7 @@ import {
 } from 'lucide-react';
 import { REGIONS } from '../data/mockData';
 import MicrophoneInput from '../components/features/MicrophoneInput';
+import PronounceButton from '../components/features/PronounceButton';
 import './Translator.css';
 
 // Pre-defined sentences with authentic regional translations
@@ -276,17 +276,6 @@ export default function Translator() {
     setInputText(PRESET_SENTENCES[index].standard);
   };
 
-  // Text to speech
-  const speakKannada = (text) => {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'kn-IN';
-      utterance.rate = 0.88;
-      window.speechSynthesis.speak(utterance);
-    }
-  };
-
   // Copy to clipboard
   const handleCopy = (text, regId) => {
     navigator.clipboard.writeText(text);
@@ -319,6 +308,14 @@ export default function Translator() {
             </span>
             <div className="input-card-top-actions">
               <span className="input-hint">Type below, choose a preset, or use voice input</span>
+              {inputText.trim() && (
+                <PronounceButton
+                  text={inputText}
+                  id="translator-input-standard"
+                  idleLabel="Listen"
+                  className="mic-toggle-btn"
+                />
+              )}
               <button
                 type="button"
                 className={`mic-toggle-btn ${showMic ? 'active' : ''}`}
@@ -423,14 +420,12 @@ export default function Translator() {
                   </div>
 
                   <div className="result-card-footer">
-                    <button
-                      type="button"
+                    <PronounceButton
+                      text={res.text}
+                      id={`translator-${reg.id}`}
+                      idleLabel="Listen"
                       className="result-action-btn speak-btn"
-                      onClick={() => speakKannada(res.text)}
-                      title="Listen in Kannada"
-                    >
-                      <Volume2 size={15} /> Listen
-                    </button>
+                    />
 
                     <button
                       type="button"
