@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   ArrowRight,
@@ -9,13 +9,6 @@ import {
   MapPin,
   Search,
   Volume2,
-  BookOpen,
-  Users,
-  Globe,
-  Star,
-  Mic,
-  ChevronLeft,
-  ChevronRight,
   Sparkles,
 } from 'lucide-react';
 import { REGIONS, EXPRESSIONS, DOMAINS } from '../data/mockData';

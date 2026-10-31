@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { Compass, Sparkles, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Sparkles, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import SearchBar from '../components/features/SearchBar';
 import ExpressionCard from '../components/features/ExpressionCard';
 import EmptyState from '../components/common/EmptyState';

@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  Languages, 
-  Volume2, 
-  Copy, 
-  Check, 
-  Sparkles, 
-  ArrowRight, 
-  RefreshCw,
-  Share2,
-  BookOpen
+import {
+  Languages,
+  Volume2,
+  Copy,
+  Check,
+  Sparkles,
+  ArrowRight,
+  BookOpen,
+  Mic,
 } from 'lucide-react';
 import { REGIONS } from '../data/mockData';
+import MicrophoneInput from '../components/features/MicrophoneInput';
 import './Translator.css';
 
 // Pre-defined sentences with authentic regional translations
@@ -213,6 +213,15 @@ export default function Translator() {
   const [inputText, setInputText] = useState(PRESET_SENTENCES[0].standard);
   const [copiedRegion, setCopiedRegion] = useState(null);
   const [activePresetIndex, setActivePresetIndex] = useState(0);
+  const [showMic, setShowMic] = useState(false);
+
+  // When the mic produces a transcript, put it in the textarea
+  const handleMicTranscript = (text) => {
+    if (text) {
+      setInputText(text);
+      setActivePresetIndex(-1); // deselect preset since this is custom input
+    }
+  };
 
   // Compute translation results
   const currentTranslation = React.useMemo(() => {
@@ -308,8 +317,30 @@ export default function Translator() {
             <span className="input-label">
               <Languages size={16} /> ಪ್ರಮಾಣ ಕನ್ನಡ (Standard Kannada Input)
             </span>
-            <span className="input-hint">Type below or choose a preset phrase</span>
+            <div className="input-card-top-actions">
+              <span className="input-hint">Type below, choose a preset, or use voice input</span>
+              <button
+                type="button"
+                className={`mic-toggle-btn ${showMic ? 'active' : ''}`}
+                onClick={() => setShowMic((v) => !v)}
+                aria-label={showMic ? 'Hide voice input' : 'Open voice input'}
+                title="Voice input (Kannada / English)"
+              >
+                <Mic size={16} />
+                {showMic ? 'Hide Voice Input' : 'Voice Input'}
+              </button>
+            </div>
           </div>
+
+          {/* Microphone / Speech Recognition Panel */}
+          {showMic && (
+            <MicrophoneInput
+              onTranscript={handleMicTranscript}
+              language="kn-IN"
+              placeholder="ಮಾತನಾಡಿ — Speak a Kannada sentence..."
+              showLanguageToggle={true}
+            />
+          )}
 
           <textarea
             className="translator-textarea kannada-text"

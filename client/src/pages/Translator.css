@@ -365,3 +365,52 @@
     font-size: 1.35rem;
   }
 }
+
+/* ── Voice Input Toggle Button ── */
+.input-card-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.mic-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border: 1.5px solid #e2d2ba;
+  background: #fff;
+  color: #8c8270;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.mic-toggle-btn:hover {
+  border-color: #c62828;
+  color: #c62828;
+  background: #fff9f5;
+}
+
+.mic-toggle-btn.active {
+  background: #c62828;
+  border-color: #c62828;
+  color: #fff;
+}
+
+@media (max-width: 540px) {
+  .input-card-top-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .mic-toggle-btn {
+    font-size: 0.78rem;
+    padding: 6px 10px;
+  }
+}
+

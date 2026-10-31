@@ -1,13 +1,12 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, Compass, BookOpen, Volume2, ArrowRight, Check, Shuffle, Sparkles } from 'lucide-react';
-import { REGIONS, CROSS_DIALECT_COMPARISONS, EXPRESSIONS } from '../data/mockData';
+import { REGIONS, CROSS_DIALECT_COMPARISONS } from '../data/mockData';
 import './CompareDialects.css';
 
 export default function CompareDialects() {
   const [selectedConceptId, setSelectedConceptId] = useState(CROSS_DIALECT_COMPARISONS[0].id);
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeCategory, setActiveCategory] = useState('all');
 
   // Filter comparisons based on search query
   const filteredConcepts = useMemo(() => {

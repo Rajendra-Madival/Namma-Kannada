@@ -1,0 +1,282 @@
+/* MicrophoneInput.css — Namma Kannada Speech Recognition Component */
+
+.mic-input-wrap {
+  background: #fffdf7;
+  border: 1.5px solid #e8dcc8;
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+  margin-top: 1rem;
+  font-family: inherit;
+  position: relative;
+}
+
+/* ── Language Row ── */
+.mic-lang-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.mic-lang-label {
+  font-size: 0.8rem;
+  color: #7a6a58;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mic-lang-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1.5px solid #d8c9b0;
+  background: #fff;
+  color: #7a6a58;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.mic-lang-pill:hover:not(:disabled) {
+  border-color: #c8400a;
+  color: #c8400a;
+}
+
+.mic-lang-pill.active {
+  background: #c8400a;
+  border-color: #c8400a;
+  color: #fff;
+}
+
+.mic-lang-pill:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ── Transcript Area ── */
+.mic-transcript-area {
+  min-height: 70px;
+  background: #fff;
+  border: 1.5px solid #e8dcc8;
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: #2c2318;
+  position: relative;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  margin-bottom: 0.75rem;
+  word-break: break-word;
+}
+
+.mic-transcript-area.is-listening {
+  border-color: #c8400a;
+  box-shadow: 0 0 0 3px rgba(200, 64, 10, 0.12);
+  animation: mic-pulse 2s ease-in-out infinite;
+}
+
+@keyframes mic-pulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(200, 64, 10, 0.12); }
+  50% { box-shadow: 0 0 0 6px rgba(200, 64, 10, 0.06); }
+}
+
+.mic-transcript-area.is-error {
+  border-color: #c62828;
+  background: #fff8f8;
+}
+
+.mic-placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+.mic-final-text {
+  color: #2c2318;
+  font-weight: 500;
+}
+
+.mic-interim-text {
+  color: #9a8070;
+  font-style: italic;
+}
+
+/* ── Status Row ── */
+.mic-status-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0.6rem;
+  font-size: 0.82rem;
+}
+
+.mic-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ccc;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.mic-status-dot.mic-status-idle { background: #ccc; }
+.mic-status-dot.mic-status-requesting-permission { background: #f59e0b; animation: blink 1s ease infinite; }
+.mic-status-dot.mic-status-listening { background: #c8400a; animation: blink 0.8s ease infinite; }
+.mic-status-dot.mic-status-processing { background: #2563eb; animation: blink 1.2s ease infinite; }
+.mic-status-dot.mic-status-completed { background: #16a34a; }
+.mic-status-dot.mic-status-error { background: #c62828; }
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.mic-status-text {
+  color: #7a6a58;
+  font-weight: 500;
+}
+
+/* ── Error Message ── */
+.mic-error-msg {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: #fff0f0;
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+  padding: 0.6rem 0.9rem;
+  color: #c62828;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+}
+
+.mic-error-msg svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── Action Buttons ── */
+.mic-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.mic-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: inherit;
+}
+
+.mic-btn-record {
+  background: #c8400a;
+  color: #fff;
+}
+
+.mic-btn-record:hover:not(:disabled) {
+  background: #a33308;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(200, 64, 10, 0.3);
+}
+
+.mic-btn-record:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.mic-btn-retry {
+  background: #7a5a40;
+}
+
+.mic-btn-retry:hover:not(:disabled) {
+  background: #5c4030;
+}
+
+.mic-btn-stop {
+  background: #2c2318;
+  color: #fff;
+  animation: stop-pulse 1s ease infinite;
+}
+
+@keyframes stop-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(44, 35, 24, 0.35); }
+  50% { box-shadow: 0 0 0 6px rgba(44, 35, 24, 0); }
+}
+
+.mic-btn-stop:hover {
+  background: #c8400a;
+}
+
+.mic-btn-clear {
+  background: #fff;
+  color: #7a6a58;
+  border: 1.5px solid #d8c9b0;
+}
+
+.mic-btn-clear:hover {
+  background: #f5efe6;
+  border-color: #b09a80;
+}
+
+/* Spinner for REQUESTING state */
+.spin-icon {
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ── Compatibility Note ── */
+.mic-compat-note {
+  font-size: 0.77rem;
+  color: #a09080;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ── Unsupported Browser State ── */
+.mic-input-wrap.mic-unsupported {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: #f9f5f0;
+  border-color: #e0d0b8;
+}
+
+.mic-unsupported-icon {
+  flex-shrink: 0;
+  color: #a09080;
+  padding-top: 2px;
+}
+
+.mic-unsupported-text {
+  font-size: 0.88rem;
+  color: #5a4a38;
+  line-height: 1.55;
+}
+
+.mic-unsupported-text strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.9rem;
+  color: #2c2318;
+}
+
+.mic-unsupported-text p {
+  margin: 0;
+}
